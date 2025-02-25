@@ -1,0 +1,97 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    background-color: #ECEFF1;
+}
+
+.app_container {
+    margin: auto;
+    width: 960px;
+    height: inherit;
+    box-shadow: 2px 4px 16px rgb(192, 192, 192);
+}
+
+
+@media (orientation: portrait) {
+    .app_container {
+        width: 100%;
+    }
+}
+
+.app, .tasks {
+    height: inherit;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    background-color: #eceff1;
+}
+
+.navbar {
+    background-color: #fafafa;
+    padding: 2rem;
+    box-shadow: 0px 0px 25px -15px #333;
+}
+
+.lists {
+    height: inherit;
+    padding: 1rem;
+    gap: 1rem;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 33% 33% 33%;
+}
+
+.list {
+    background-color: #fafafa;
+    height: 150px;
+    width: 150px;
+    grid: 6;
+
+}
+
+.user {
+    display: flex;
+    flex-flow: row;
+    gap: 1rem;  
+}
+
+.footer {
+    text-align: end;
+    padding: 2rem;
+}
+
+.footer .add_list_button {
+    height: 70px;
+    width: 70px;
+    padding: 1rem;
+    background: #7c4dff;
+    color: whitesmoke;
+    box-shadow: 2px 4px 16px #5635b2;
+}
+
+.footer .add_list_button:hover {
+    background-color: #5635b2;
+    color:  #fafafad9;
+    cursor: pointer;
+}
+
+
+.tasks_header {
+    /* margin: auto; */
+    padding: 4rem;
+    text-align: center;
+    background-color: #7c4dff;
+    color: whitesmoke;
+    font-size: 2rem;
+}
+
+.tasks_container {
+
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Vanilla To-Do</title>
+</head>
+<body>
+    <main class="app_container">
+        <div id="app" class="app">
+            <div class="navbar">
+                <div class="user">
+                    <img src="" alt="profile picture">
+                    <p class="user_name">Rodrigo</p>
+                </div>
+            </div>
+            <div id="lists" class="lists">
+            </div>
+            <div class="footer">
+                <!-- <input type="button" id="add_list_btn" class="add_list_button" value="Add List"> -->
+                <svg class="add_list_button" id="add_list_btn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                  </svg>
+            </div>
+        </div>
+        <div id="tasks" class="tasks" >
+            <div id="tasks_header" class="tasks_header">
+            </div>
+            <div id="tasks_container" class="tasks_container"></div>
+            <div id="tasks_footer" class="tasks_footer">
+                <input id="task_input" name="task_name" type="text" value="text">
+                <button type="button" id="add_task_btn" value="">Add task</button>
+            </div>
+        </div>
+    </main>
+
+    
+    
+    <script src="script.js"></script>
+</body>
+</html>
