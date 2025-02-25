@@ -68,7 +68,7 @@ addTaskBtn.addEventListener('click', () => {
 const displayTasks = (list) => {
     let tasksHtml = ``;
     for (let i = 0; i < list.tasks.length; i++) {
-        tasksHtml += `<div class='tasks' id='${i}'>${list.tasks[i].task}</div>`
+        tasksHtml += `<div class='task' id='${i}'>${list.tasks[i].task}</div>`
     }
     console.log(tasksHtml)
     tasksContainer.innerHTML = tasksHtml;

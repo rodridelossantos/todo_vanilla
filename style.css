@@ -31,6 +31,7 @@ body {
     flex-flow: column;
     justify-content: space-between;
     background-color: #eceff1;
+    gap: 4rem;
 }
 
 .navbar {
@@ -59,7 +60,7 @@ body {
 .user {
     display: flex;
     flex-flow: row;
-    gap: 1rem;  
+    gap: 1rem;
 }
 
 .footer {
@@ -93,5 +94,18 @@ body {
 }
 
 .tasks_container {
+    height: inherit;
+    display: flex;
+    flex-flow: column;
 
+}
+
+.task {
+    padding: 2rem;
+    font-size: 2rem;
+    display: flex;
+}
+
+.task:hover {
+    background-color: #5635b2;
 }
