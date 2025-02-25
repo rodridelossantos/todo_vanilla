@@ -8,13 +8,14 @@
 body {
     height: 100vh;
     width: 100%;
-    background-color: #333;
+    background-color: #ECEFF1;
 }
 
 .app_container {
     margin: auto;
     width: 960px;
     height: inherit;
+    box-shadow: 2px 4px 16px rgb(192, 192, 192);
 }
 
 
@@ -24,7 +25,7 @@ body {
     }
 }
 
-.app {
+.app, .tasks {
     height: inherit;
     display: flex;
     flex-flow: column;
@@ -72,7 +73,6 @@ body {
     padding: 1rem;
     background: #7c4dff;
     color: whitesmoke;
-    border-radius: 1rem;
     box-shadow: 2px 4px 16px #5635b2;
 }
 
@@ -83,4 +83,15 @@ body {
 }
 
 
+.tasks_header {
+    /* margin: auto; */
+    padding: 4rem;
+    text-align: center;
+    background-color: #7c4dff;
+    color: whitesmoke;
+    font-size: 2rem;
+}
 
+.tasks_container {
+
+}
