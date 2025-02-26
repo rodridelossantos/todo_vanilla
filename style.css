@@ -113,6 +113,7 @@ body {
 
 .task:hover {
     background-color: #5635b2;
+    transition: all 150ms;
 }
 
 .task::before {
@@ -120,8 +121,8 @@ body {
 }
 
 .trash_icon {
-    height: 2rem;
-
+    height: 2.5rem;
+    transition: all 150ms;
 }
 
 .trash_icon:hover {
