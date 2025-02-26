@@ -92,6 +92,9 @@ body {
     color: whitesmoke;
     font-size: 2rem;
 }
+.tasks_header::before {
+
+}
 
 .tasks_container {
     height: inherit;
@@ -104,8 +107,25 @@ body {
     padding: 2rem;
     font-size: 2rem;
     display: flex;
+    place-items: center;
+    place-content: space-between;
 }
 
 .task:hover {
     background-color: #5635b2;
+}
+
+.task::before {
+    
+}
+
+.trash_icon {
+    height: 2rem;
+
+}
+
+.trash_icon:hover {
+    color: red;
+    cursor: pointer;
+    /* fill: #333; */
 }
