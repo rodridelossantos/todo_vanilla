@@ -57,6 +57,11 @@ body {
 
 }
 
+.list:hover {
+    cursor: pointer;
+    transition: all 150ms;
+}
+
 .user {
     display: flex;
     flex-flow: row;
@@ -91,9 +96,12 @@ body {
     background-color: #7c4dff;
     color: whitesmoke;
     font-size: 2rem;
+    /* display: flex; */
+    /* place-content: center */
 }
-.tasks_header::before {
 
+.title {
+    /* width: 67%; */
 }
 
 .tasks_container {
@@ -117,10 +125,6 @@ body {
     cursor: pointer;
 }
 
-.task::before {
-    
-}
-
 .trash_icon {
     height: 2.5rem;
     transition: all 150ms;
@@ -131,4 +135,14 @@ body {
     color: red;
     cursor: pointer;
     /* fill: #333; */
+}
+
+.back_button {
+    position: fixed;
+    /* display: flex; */
+    /* text-wrap: wrap; */
+}
+
+.back_button svg {
+    height: 2.5rem;
 }

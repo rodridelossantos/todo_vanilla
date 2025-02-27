@@ -2,10 +2,11 @@ const addListBtn = document.getElementById("add_list_btn")
 const lists = document.getElementById("lists");
 const tasks = document.getElementById('tasks')
 const app = document.getElementById('app')
-const tasksHeader = document.getElementById('tasks_header')
+const tasksHeader = document.getElementById('tasks_header').children[1]
 const addTaskBtn = document.getElementById("add_task_btn")
 const taskInput = document.getElementById("task_input")
 const tasksContainer = document.getElementById("tasks_container");
+const backBtn = document.getElementById('back_button')
 
 tasks.style = "display: none"
 
@@ -30,17 +31,19 @@ const attachRemoveToList = () => {
 }
 
 const attachShowListTasks = () => {
+    let listTitleHtml = ``;
     for (let i = 0; i < lists.children.length; i++) {
         lists.children[i].addEventListener('click', (e) => {
+            listName = e.target.attributes.value.value
             app.style = "display: none"
             tasks.style = "display: flex";
-            let listTitle = document.createElement('p');
-            console.log(e.target)
-            listTitle.innerText = e.target.attributes.value.value
-            tasksHeader.id = e.target.attributes.value.value
-            tasksHeader.appendChild(listTitle)
+            listTitleHtml = `<p id=${listName}>${listName}</p>`
+            tasksHeader.innerHTML = listTitleHtml
+            
+            displayTasks(listArr.find((e) => e.name === listName))
         })
     }
+    backBtnAddClickListener();
 }
 
 
@@ -55,7 +58,7 @@ addListBtn.addEventListener('click', () => {
 
 addTaskBtn.addEventListener('click', () => {
     let taskName = taskInput.value;
-    let currentList = listArr.find((e) => e.name === tasksHeader.id)
+    let currentList = listArr.find((e) => e.name === tasksHeader.innerText)
     console.log(currentList)
     currentList.tasks.push(
         {task: taskName,
@@ -63,6 +66,7 @@ addTaskBtn.addEventListener('click', () => {
         }
     );
     displayTasks(currentList);
+    
 })
 
 const displayTasks = (list) => {
@@ -83,7 +87,7 @@ const displayTasks = (list) => {
 }
 
 const appendCompleteTaskListener = (tasks) => {
-    let currentList = listArr.find((e) => e.name === tasksHeader.id)
+    let currentList = listArr.find((e) => e.name === tasksHeader.innerText)
     for (let i = 0; i < tasks.length; i++) {
         tasks[i].addEventListener('click', (e) => {
             console.log(e.target)
@@ -97,7 +101,7 @@ const appendCompleteTaskListener = (tasks) => {
 }
 
 const appendRemoveTaskListener = (tasks) => {
-    let currentList = listArr.find((e) => e.name === tasksHeader.id)
+    let currentList = listArr.find((e) => e.name === tasksHeader.innerText)
     for (let i = 0; i < tasks.length; i++) {
         console.log(tasks[i].children[0])
         tasks[i].children[0].addEventListener('click', (e) => {
@@ -114,4 +118,11 @@ const appendRemoveTaskListener = (tasks) => {
 
     )
     }
+}
+
+const backBtnAddClickListener = () => {
+    backBtn.addEventListener('click', () => {
+        app.style = "display: flex"
+        tasks.style = "display: none";
+    })
 }
