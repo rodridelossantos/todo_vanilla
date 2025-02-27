@@ -11,7 +11,9 @@
         <div id="app" class="app">
             <div class="navbar">
                 <div class="user">
-                    <img src="" alt="profile picture">
+                    <svg id="profile_picture" class="profile_picture" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4">
+                        <path fill-rule="evenodd" d="M15 8A7 7 0 1 1 1 8a7 7 0 0 1 14 0Zm-5-2a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM8 9c-1.825 0-3.422.977-4.295 2.437A5.49 5.49 0 0 0 8 13.5a5.49 5.49 0 0 0 4.294-2.063A4.997 4.997 0 0 0 8 9Z" clip-rule="evenodd" />
+                      </svg>                      
                     <p class="user_name">Rodrigo</p>
                 </div>
             </div>
@@ -25,7 +27,15 @@
             </div>
         </div>
         <div id="tasks" class="tasks" >
+            
             <div id="tasks_header" class="tasks_header">
+                <div class="back_button filler" id="back_button">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                      </svg>          
+                </div>
+                <div class="title"></div>
+                <div class="filler"></div>
             </div>
             <div id="tasks_container" class="tasks_container"></div>
             <div id="tasks_footer" class="tasks_footer">

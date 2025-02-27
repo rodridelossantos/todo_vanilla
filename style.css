@@ -31,6 +31,10 @@ body {
     flex-flow: column;
     justify-content: space-between;
     background-color: #eceff1;
+    gap: 4rem;
+}
+.tasks {
+    gap:0;
 }
 
 .navbar {
@@ -56,10 +60,16 @@ body {
 
 }
 
+.list:hover {
+    cursor: pointer;
+    transition: all 150ms;
+}
+
 .user {
     display: flex;
-    flex-flow: row;
-    gap: 1rem;  
+    place-items: center;
+    font-size: 1.2rem;
+    gap: 1rem;
 }
 
 .footer {
@@ -85,13 +95,77 @@ body {
 
 .tasks_header {
     /* margin: auto; */
-    padding: 4rem;
+    /* padding: 4rem; */
+    height: 25%;
     text-align: center;
     background-color: #7c4dff;
     color: whitesmoke;
-    font-size: 2rem;
+    font-size: 2.5rem;
+    display: flex;
+    place-content: space-between;
+    place-items: center;
+}
+
+
+
+.title {
+
 }
 
 .tasks_container {
+    height: inherit;
+    display: flex;
+    flex-flow: column;
+}
 
+.task {
+    padding: 2rem;
+    font-size: 2rem;
+    display: flex;
+    place-items: center;
+    place-content: space-between;
+}
+
+.task:hover {
+    background-color: #5635b2;
+    transition: all 150ms;
+    cursor: pointer;
+}
+
+.trash_icon {
+    height: 2.5rem;
+    transition: all 150ms;
+    
+}
+
+.trash_icon:hover {
+    color: red;
+    cursor: pointer;
+    /* fill: #333; */
+}
+
+.back_button {
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    place-content: center;
+}
+
+.back_button:hover {
+    cursor: pointer;
+    background-color: #5635b2;
+    transition: all 150ms;
+}
+
+.back_button svg {
+    height: 2.5rem;
+}
+
+.filler {
+    width: 4.5rem;
+}
+
+.profile_picture {
+    height: 3.5rem;
+    color: #7c4dff;
 }
