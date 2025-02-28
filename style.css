@@ -31,8 +31,13 @@ body {
     flex-flow: column;
     justify-content: space-between;
     background-color: #eceff1;
-    gap: 4rem;
+    gap: 1rem;
 }
+
+.app {
+    /* padding: 1rem; */
+}
+
 .tasks {
     gap:0;
 }
@@ -57,12 +62,15 @@ body {
     height: 150px;
     width: 150px;
     grid: 6;
-
+    display: flex;
+    flex-flow: column;
+    place-content: center;
+    place-items: center;
 }
 
-.list:hover {
-    cursor: pointer;
-    transition: all 150ms;
+
+.list_name {
+    font-size: 2rem;
 }
 
 .user {
@@ -77,6 +85,12 @@ body {
     padding: 2rem;
 }
 
+.lists_section_title {
+    font-size: 2.5rem;
+    margin-left: 1rem;
+}
+
+
 .footer .add_list_button {
     height: 70px;
     width: 70px;
@@ -86,10 +100,12 @@ body {
     box-shadow: 2px 4px 16px #5635b2;
 }
 
-.footer .add_list_button:hover {
+.footer .add_list_button:hover, .list:hover, .task:hover, .back_button:hover {
     background-color: #5635b2;
-    color:  #fafafad9;
+    color:  whitesmoke;
     cursor: pointer;
+    transition: all 150ms;
+
 }
 
 
@@ -126,12 +142,6 @@ body {
     place-content: space-between;
 }
 
-.task:hover {
-    background-color: #5635b2;
-    transition: all 150ms;
-    cursor: pointer;
-}
-
 .trash_icon {
     height: 2.5rem;
     transition: all 150ms;
@@ -149,12 +159,6 @@ body {
     display: flex;
     flex-flow: column;
     place-content: center;
-}
-
-.back_button:hover {
-    cursor: pointer;
-    background-color: #5635b2;
-    transition: all 150ms;
 }
 
 .back_button svg {

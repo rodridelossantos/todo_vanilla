@@ -15,7 +15,7 @@ let listArr = [];
 const attachRemoveToList = () => {
     for (let i = 0; i < lists.children.length; i++){
         console.log(lists.children[i])
-        lists.children[i].children[0].addEventListener('click', (e) => {
+        lists.children[i].children[1].addEventListener('click', (e) => {
             e.stopPropagation();
             e.target.parentElement.remove();
             listArr.splice(e.target.value, 1);
@@ -29,7 +29,8 @@ const displayList = () => {
     let listHtml = ``
     // const removeParent = (e) => e.target.parentElement.remove();
     for (let i = 0; i < listArr.length; i++) {
-        listHtml += `<div class="list" id="${i}" value="${listArr[i].name}">${listArr[i].name}
+        listHtml += `<div class="list" id="${i}" value="${listArr[i].name}">
+        <p class="list_name">${listArr[i].name}</p>
         <button type="button" id="remove_list_button">Remove</button>
         </div>`
         lists.innerHTML = listHtml;
@@ -43,6 +44,7 @@ const attachShowListTasks = () => {
     let listTitleHtml = ``;
     for (let i = 0; i < lists.children.length; i++) {
         lists.children[i].addEventListener('click', (e) => {
+            console.log(e.target.attributes)
             listName = e.target.attributes.value.value
             app.style = "display: none"
             tasks.style = "display: flex";
