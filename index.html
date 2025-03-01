@@ -28,7 +28,6 @@
             </div>
         </div>
         <div id="tasks" class="tasks" >
-            
             <div id="tasks_header" class="tasks_header">
                 <div class="back_button filler" id="back_button">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -38,7 +37,13 @@
                 <div class="title"></div>
                 <div class="filler"></div>
             </div>
-            <div id="tasks_container" class="tasks_container"></div>
+            <div id="tasks_container" class="tasks_container">
+                <!-- <h1>helo</h1> -->
+                <div id="pending_tasks"></div>
+                <div id="hide_completed_div" class="hide_completed_div">Completed</div>
+                <div id="completed_tasks_div">
+                </div>
+            </div>
             <div id="tasks_footer" class="tasks_footer">
                 <input id="task_input" name="task_name" type="text" value="text">
                 <button type="button" id="add_task_btn" value="">Add task</button>
