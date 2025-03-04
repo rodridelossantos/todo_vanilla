@@ -109,6 +109,7 @@ body {
 }
 
 
+/* fix */
 .tasks_header {
     /* margin: auto; */
     /* padding: 4rem; */
@@ -174,3 +175,12 @@ body {
     color: #7c4dff;
 }
 
+.empty_circle, .checked_circle {
+    height: 3rem;
+}
+
+.task_name_container {
+    display: flex;
+    place-items: center;
+    gap: 2rem;
+}
