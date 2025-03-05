@@ -41,8 +41,8 @@ const displayList = () => {
     let listHtml = ``
     // const removeParent = (e) => e.target.parentElement.remove();
     for (let i = 0; i < listArr.length; i++) {
-        listHtml += `<div class="list" id="${i}" value="${listArr[i].name}">
-        <p class="list_name">${listArr[i].name}</p>
+        listHtml += `<div class="list" id="${i}" value="${listArr[i].fullName}">
+        <p class="list_name">${listArr[i].fullName}</p>
         <button type="button" id="remove_list_button">Remove</button>
         </div>`
         lists.innerHTML = listHtml;
@@ -62,7 +62,7 @@ const attachShowListTasks = () => {
             tasks.style = "display: flex";
             listTitleHtml = `<p id=${listName}>${listName}</p>`
             tasksHeader.innerHTML = listTitleHtml
-            displayTasks(listArr.find((e) => e.name === listName))
+            displayTasks(listArr.find((e) => e.fullName === listName))
         })
     }
     
@@ -70,19 +70,85 @@ const attachShowListTasks = () => {
     backBtnAddClickListener();
 }
 
+// Limpiar desde acá
+
+const duplicateCounter = (element, arr, property) => {
+    let counter = 0;
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i][property] === element) {  
+            counter++
+        } 
+    }
+    return counter;
+}
+
+const isDuplicate = (element, list) => {
+    let listName = element;
+    const hasDuplicate = (counter) => {
+        counter = `(${counter})`
+        if (counter)
+        return counter && false
+    }
+    for (let i = 0; i < list.length; i++) {
+        if (element === list[i].name) {
+            listName = `${listName} ${hasDuplicate()}`
+        }
+    }
+
+    return listName;
+}
+
+const hasDuplicate = (element, ) => {
+    
+
+}
+
+const listIsDuplicate = (newList) => {
+    let duplicateAmount = duplicateCounter(newList, listArr, "name");
+    let listName;
+    if (duplicateAmount) {
+        listName = `${newList} (${duplicateAmount })`;
+    }
+    else {
+        listName = newList;
+    }
+    
+    return [newList, listName]
+}
+// Hasta acá
+
+const listNameGen = (element, arr, property) => {
+    let name = element
+    let existingNames = arr.map(item => item[property]);
+    let newName = name;
+
+    console.log(existingNames)
+
+    if (existingNames.includes(name)) {
+        let i = 1;
+        while (existingNames.includes(`${name} (${i})`)){
+        i++;
+        }
+        newName = `${name} (${i})`
+    }
+
+    return newName;
+
+}
 
 addListBtn.addEventListener('click', () => {
-    let listName = prompt('Type a name for your new list.')
+    // let listName = listIsDuplicate(prompt('Type a name for your new list.'));
+    let listName = listNameGen(prompt('Type a name for your new list'), listArr, "fullName")
     listArr.push({
-        name: listName,
-        tasks: []
+        fullName: listName,
+        tasks: [],
     })
     displayList();
 })
 
 addTaskBtn.addEventListener('click', () => {
     let taskName = taskInput.value;
-    let currentList = listArr.find((e) => e.name === tasksHeader.innerText)
+    let currentList = listArr.find((e) => e.fullName === tasksHeader.innerText)
     console.log(currentList)
     currentList.tasks.push(
         {task: taskName,
@@ -131,7 +197,7 @@ const displayTasks = (list) => {
 }
 
 const appendCompleteTaskListener = (tasks) => {
-    let currentList = listArr.find((e) => e.name === tasksHeader.innerText)
+    let currentList = listArr.find((e) => e.fullName === tasksHeader.innerText)
     for (let i = 0; i < tasks.length; i++) {
         tasks[i].addEventListener('click', (e) => {
             console.log(e.target)
@@ -147,14 +213,14 @@ const appendCompleteTaskListener = (tasks) => {
 }
 
 const appendRemoveTaskListener = (tasks) => {
-    let currentList = listArr.find((e) => e.name === tasksHeader.innerText)
+    let currentList = listArr.find((e) => e.fullName === tasksHeader.innerText)
     for (let i = 0; i < tasks.length; i++) {
         // console.log(tasks[i].children[0])
         tasks[i].children[1].addEventListener('click', (e) => {
             e.stopPropagation();
             console.log(e.target.parentElement.parentElement)
             let taskToRemove = currentList.tasks.findIndex((element) => {
-                element.name === e.target.parentElement.innerText;
+                element.fullName === e.target.parentElement.innerText;
             })
             currentList.tasks.splice(
                 taskToRemove, 1

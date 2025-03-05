@@ -127,13 +127,15 @@ body {
     width: 100%;
     display: flex;
     flex-flow: column;
-    padding: 1rem;
+    padding: 2rem;
     gap: 1rem;
 }
 
 .task_input_container {
     width: 100%;
     display: flex;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 }
 
 .task_input_container input {
@@ -145,8 +147,19 @@ body {
 
 .task_input_container input:focus {
     outline: none;
-    
 }
+
+.add_task_button {
+    background: none;
+    border: none;
+    color: #7c4dff;
+    font-size: 1.5rem;
+}
+
+.add_task_button:hover {
+    color: #5635b2;
+    cursor: pointer;
+} 
 
 hr {
     color: #7c4dff;
