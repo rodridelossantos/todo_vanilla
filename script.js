@@ -70,53 +70,6 @@ const attachShowListTasks = () => {
     backBtnAddClickListener();
 }
 
-// Limpiar desde acá
-
-const duplicateCounter = (element, arr, property) => {
-    let counter = 0;
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i][property] === element) {  
-            counter++
-        } 
-    }
-    return counter;
-}
-
-const isDuplicate = (element, list) => {
-    let listName = element;
-    const hasDuplicate = (counter) => {
-        counter = `(${counter})`
-        if (counter)
-        return counter && false
-    }
-    for (let i = 0; i < list.length; i++) {
-        if (element === list[i].name) {
-            listName = `${listName} ${hasDuplicate()}`
-        }
-    }
-
-    return listName;
-}
-
-const hasDuplicate = (element, ) => {
-    
-
-}
-
-const listIsDuplicate = (newList) => {
-    let duplicateAmount = duplicateCounter(newList, listArr, "name");
-    let listName;
-    if (duplicateAmount) {
-        listName = `${newList} (${duplicateAmount })`;
-    }
-    else {
-        listName = newList;
-    }
-    
-    return [newList, listName]
-}
-// Hasta acá
-
 const listNameGen = (element, arr, property) => {
     let name = element
     let existingNames = arr.map(item => item[property]);
@@ -152,7 +105,8 @@ addTaskBtn.addEventListener('click', () => {
     console.log(currentList)
     currentList.tasks.push(
         {task: taskName,
-         completed: false
+         completed: false,
+         key: uniqueKeyGenerator(),
         }
     );
     displayTasks(currentList);
@@ -160,8 +114,8 @@ addTaskBtn.addEventListener('click', () => {
 
 const displayTasks = (list) => {
 
-    taskHtmlTemplate = (isCompleted, id, task) => {return `
-        <div style="${isCompleted ? "text-decoration: line-through" : ""}" class='task' id='${id}'>
+    taskHtmlTemplate = (isCompleted, id, task, key) => {return `
+        <div style="${isCompleted ? "text-decoration: line-through" : ""}" class='task' key='${key}' id='${id}'>
         <div class="task_name_container">
         ${isCompleted ? checkedCircle : emtpyCircle}
         ${task}
@@ -172,10 +126,10 @@ const displayTasks = (list) => {
     let completedTasksHtml = ``
     for (let i = 0; i < list.tasks.length; i++) {
         if (list.tasks[i].completed) {
-            completedTasksHtml += taskHtmlTemplate(list.tasks[i].completed, i, list.tasks[i].task)
+            completedTasksHtml += taskHtmlTemplate(list.tasks[i].completed, i, list.tasks[i].task, list.tasks[i].key)
         }
         else {
-            pendingTasksHtml += taskHtmlTemplate(list.tasks[i].completed, i, list.tasks[i].task)
+            pendingTasksHtml += taskHtmlTemplate(list.tasks[i].completed, i, list.tasks[i].task, list.tasks[i].key)
         } 
     }
 
@@ -196,12 +150,16 @@ const displayTasks = (list) => {
     appendRemoveTaskListener(tasksContainer.children[2].children)
 }
 
+const uniqueKeyGenerator = () =>{
+    return `task- ${Date.now()} - ${Math.floor(Math.random() * 1000)}`
+}
+
 const appendCompleteTaskListener = (tasks) => {
     let currentList = listArr.find((e) => e.fullName === tasksHeader.innerText)
     for (let i = 0; i < tasks.length; i++) {
         tasks[i].addEventListener('click', (e) => {
             console.log(e.target)
-            let taskToComplete = currentList.tasks.find((element) => element.task === e.target.innerText)
+            let taskToComplete = currentList.tasks.find((element) => element.key === e.target.attributes.key.value)
             console.log(taskToComplete)
             taskToComplete.completed = !taskToComplete.completed;
             taskToComplete.completed ? e.target.style = "text-decoration: line-through" : e.target.style = "";
@@ -215,15 +173,17 @@ const appendCompleteTaskListener = (tasks) => {
 const appendRemoveTaskListener = (tasks) => {
     let currentList = listArr.find((e) => e.fullName === tasksHeader.innerText)
     for (let i = 0; i < tasks.length; i++) {
-        // console.log(tasks[i].children[0])
         tasks[i].children[1].addEventListener('click', (e) => {
             e.stopPropagation();
             console.log(e.target.parentElement.parentElement)
             let taskToRemove = currentList.tasks.findIndex((element) => {
                 element.fullName === e.target.parentElement.innerText;
             })
+            let taskToRem = currentList.tasks.findIndex((element) => {
+                element.key === e.target.parentElement.attributes.key.value;
+            })
             currentList.tasks.splice(
-                taskToRemove, 1
+                taskToRem, 1
             )
             e.target.parentElement.remove()
         }
