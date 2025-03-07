@@ -165,16 +165,19 @@ hr {
     color: #7c4dff;
 }
 
-.title {
-
+.task_icon:hover {
+    color: purple;
 }
-
 .tasks_container {
     height: inherit;
     display: flex;
     flex-flow: column;
 }
 
+.task_icon {
+    display: flex;
+    place-content: center;
+}
 .task {
     padding: 2rem;
     font-size: 2rem;
@@ -206,6 +209,10 @@ hr {
     height: 2.5rem;
 }
 
+.circle_container:hover {
+    
+}
+
 .filler {
     width: 4.5rem;
 }
@@ -217,6 +224,7 @@ hr {
 
 .empty_circle, .checked_circle {
     height: 3rem;
+    pointer-events: none;
 }
 
 .task_name_container {
