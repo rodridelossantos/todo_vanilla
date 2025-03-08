@@ -69,7 +69,7 @@ const attachShowListTasks = () => {
         })
     }
     
-    console.log(lists.children)
+    // console.log(lists.children)
     backBtnAddClickListener();
 }
 
@@ -105,7 +105,7 @@ addListBtn.addEventListener('click', () => {
 addTaskBtn.addEventListener('click', () => {
     let taskName = taskInput.value;
     let currentList = listArr.find((e) => e.fullName === tasksHeader.innerText)
-    console.log(currentList)
+    // console.log(currentList)
     currentList.tasks.push(
         {task: taskName,
          completed: false,
@@ -115,25 +115,21 @@ addTaskBtn.addEventListener('click', () => {
     displayTasks(currentList);
 })
 
-const swapIcon = (id, isHovered) => {
-    const iconElement = document.getElementById(`icon-${id}`)
-        iconElement.innerHTML = isHovered ? checkedCircle : emtpyCircle;
+const taskHtmlTemplate = (isCompleted, id, task, key) => {
+    return `<div style="${isCompleted ? "text-decoration: line-through" : ""}" class='task' key='${key}' id='${id}'>
+    <div class="task_name_container">
+    <div id="icon-${id}" class="task_icon">
+    ${isCompleted ? checkedCircle : emtpyCircle}
+    </div>
+    ${task}
+    </div>
+    ${trashIcon}
+</div>`
 }
 
 const displayTasks = (list) => {
-
-    taskHtmlTemplate = (isCompleted, id, task, key) => {return `
-        <div style="${isCompleted ? "text-decoration: line-through" : ""}" class='task' key='${key}' id='${id}'>
-        <div class="task_name_container">
-        <div id="icon-${id}" class="task_icon">
-        ${isCompleted ? checkedCircle : emtpyCircle}
-        </div>
-        ${task}
-        </div>
-        ${trashIcon}
-</div>`}
     let pendingTasksHtml = ``;
-    let completedTasksHtml = ``
+    let completedTasksHtml = ``;
     for (let i = 0; i < list.tasks.length; i++) {
         if (list.tasks[i].completed) {
             completedTasksHtml += taskHtmlTemplate(list.tasks[i].completed, i, list.tasks[i].task, list.tasks[i].key)
@@ -143,13 +139,13 @@ const displayTasks = (list) => {
         } 
     }
 
-    if (
-        !completedTasksHtml
-    ) {
-        completedTasks.setAttribute("hidden", "true")
-    } else {
-        completedTasks.setAttribute("hidden", "false")
-    }
+    // if (
+    //     !completedTasksHtml
+    // ) {
+    //     completedTasks.setAttribute("hidden", "true")
+    // } else {
+    //     completedTasks.setAttribute("hidden", "false")
+    // }
 
     // console.log(pendingTasksHtml)
     tasksContainer.children[0].innerHTML = pendingTasksHtml;
@@ -195,10 +191,11 @@ const appendRemoveTaskListener = (tasks) => {
                 taskToRemove, 1
             )
             e.target.parentElement.remove()
+            displayTasks(currentList);
         }
-
     )
     }
+
 }
 
 
