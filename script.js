@@ -63,7 +63,9 @@ const attachShowListTasks = () => {
             listName = e.target.attributes.value.value
             app.style = "display: none"
             tasks.style = "display: flex";
-            listTitleHtml = `<p id=${listName}>${listName}</p>`
+            listTitleHtml = `<p id=${listName}>${listName}</p>
+            <p class="item_amount">${lists.children.length} ${lists.children.length === 1 ? "item" : "items"}</p>
+            `
             tasksHeader.innerHTML = listTitleHtml
             displayTasks(listArr.find((e) => e.fullName === listName))
         })
@@ -104,7 +106,7 @@ addListBtn.addEventListener('click', () => {
 
 addTaskBtn.addEventListener('click', () => {
     let taskName = taskInput.value;
-    let currentList = listArr.find((e) => e.fullName === tasksHeader.innerText)
+    let currentList = listArr.find((e) => e.fullName === tasksHeader.children[0].innerText)
     // console.log(currentList)
     currentList.tasks.push(
         {task: taskName,
