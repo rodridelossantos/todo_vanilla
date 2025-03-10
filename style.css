@@ -34,10 +34,6 @@ body {
     gap: 1rem;
 }
 
-.app {
-    /* padding: 1rem; */
-}
-
 .tasks {
     gap:0;
 }

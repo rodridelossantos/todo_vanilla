@@ -64,14 +64,15 @@ const attachShowListTasks = () => {
             app.style = "display: none"
             tasks.style = "display: flex";
             listTitleHtml = `<p id=${listName}>${listName}</p>
-            <p class="item_amount">${lists.children.length} ${lists.children.length === 1 ? "item" : "items"}</p>
+            <p id="${listName}_items" class="item_amount"></p>
             `
-            tasksHeader.innerHTML = listTitleHtml
-            displayTasks(listArr.find((e) => e.fullName === listName))
+            tasksHeader.innerHTML = listTitleHtml;
+            let currentList = listArr.find((e) => e.fullName === listName)
+            displayTasks(currentList)
+            itemAmountUpdate(document.getElementById(`${tasksHeader.children[0].innerText}_items`), currentList.tasks.length)        
         })
     }
     
-    // console.log(lists.children)
     backBtnAddClickListener();
 }
 
@@ -92,6 +93,10 @@ const listNameGen = (element, arr, property) => {
 
     return newName;
 
+}
+
+const itemAmountUpdate = (itemAmountElement, itemAmount) => {
+    itemAmountElement.innerHTML = `${itemAmount} items`
 }
 
 addListBtn.addEventListener('click', () => {
@@ -115,6 +120,7 @@ addTaskBtn.addEventListener('click', () => {
         }
     );
     displayTasks(currentList);
+    itemAmountUpdate(document.getElementById(`${tasksHeader.children[0].innerText}_items`), currentList.tasks.length)
 })
 
 const taskHtmlTemplate = (isCompleted, id, task, key) => {
@@ -141,15 +147,6 @@ const displayTasks = (list) => {
         } 
     }
 
-    // if (
-    //     !completedTasksHtml
-    // ) {
-    //     completedTasks.setAttribute("hidden", "true")
-    // } else {
-    //     completedTasks.setAttribute("hidden", "false")
-    // }
-
-    // console.log(pendingTasksHtml)
     tasksContainer.children[0].innerHTML = pendingTasksHtml;
     tasksContainer.children[2].innerHTML = completedTasksHtml;
     appendCompleteTaskListener(tasksContainer.children[0].children)
@@ -163,7 +160,7 @@ const uniqueKeyGenerator = () =>{
 }
 
 const appendCompleteTaskListener = (tasks) => {
-    let currentList = listArr.find((e) => e.fullName === tasksHeader.innerText)
+    let currentList = listArr.find((e) => e.fullName === tasksHeader.children[0].innerText)
     for (let i = 0; i < tasks.length; i++) {
         console.log("this is: ", tasks[i].children[0].children[0])
         tasks[i].children[0].children[0].addEventListener('click', (e) => {
@@ -181,7 +178,7 @@ const appendCompleteTaskListener = (tasks) => {
 }
 
 const appendRemoveTaskListener = (tasks) => {
-    let currentList = listArr.find((e) => e.fullName === tasksHeader.innerText)
+    let currentList = listArr.find((e) => e.fullName === tasksHeader.children[0].innerText)
     for (let i = 0; i < tasks.length; i++) {
         tasks[i].children[1].addEventListener('click', (e) => {
             e.stopPropagation();
@@ -194,10 +191,10 @@ const appendRemoveTaskListener = (tasks) => {
             )
             e.target.parentElement.remove()
             displayTasks(currentList);
+            itemAmountUpdate(document.getElementById(`${tasksHeader.children[0].innerText}_items`), currentList.tasks.length)
         }
     )
     }
-
 }
 
 
