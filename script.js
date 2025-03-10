@@ -32,8 +32,15 @@ const attachRemoveToList = () => {
         console.log(lists.children[i])
         lists.children[i].children[1].addEventListener('click', (e) => {
             e.stopPropagation();
+            let listToRemove = listArr.findIndex((element) => {
+                return element.fullName === e.target.parentElement.attributes.value.value;
+            })
+            console.log("the element to remove is:", e.target.parentElement)
+            console.log("the element's value is:", e.target.parentElement.attributes.value.value)
+            console.log("the element in the list is:", listToRemove)
+            listArr.splice(listToRemove, 1);
             e.target.parentElement.remove();
-            listArr.splice(e.target.value, 1);
+            console.log(e.target.parentElement, "removed")
         })
     }
 }
@@ -184,7 +191,7 @@ const appendRemoveTaskListener = (tasks) => {
             e.stopPropagation();
             console.log(e.target.parentElement.parentElement)
             let taskToRemove = currentList.tasks.findIndex((element) => {
-                element.key === e.target.parentElement.attributes.key.value;
+                return element.key === e.target.parentElement.attributes.key.value;
             })
             currentList.tasks.splice(
                 taskToRemove, 1
