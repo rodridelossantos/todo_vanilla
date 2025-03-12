@@ -34,10 +34,6 @@ body {
     gap: 1rem;
 }
 
-.app {
-    /* padding: 1rem; */
-}
-
 .tasks {
     gap:0;
 }
@@ -71,6 +67,7 @@ body {
 
 .list_name {
     font-size: 2rem;
+    pointer-events: none;
 }
 
 .user {
@@ -111,8 +108,6 @@ body {
 
 /* fix */
 .tasks_header {
-    /* margin: auto; */
-    /* padding: 4rem; */
     height: 25%;
     text-align: center;
     background-color: #7c4dff;
@@ -165,9 +160,6 @@ hr {
     color: #7c4dff;
 }
 
-.task_icon:hover {
-    color: purple;
-}
 .tasks_container {
     height: inherit;
     display: flex;
@@ -209,10 +201,6 @@ hr {
     height: 2.5rem;
 }
 
-.circle_container:hover {
-    
-}
-
 .filler {
     width: 4.5rem;
 }
@@ -235,6 +223,27 @@ hr {
 
 .item_amount {
     font-size: 1.5rem;
-    /* color: gray; */
+    color: rgba(255, 255, 255, 0.756);
     font-weight: lighter;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.hide_completed_div {
+    font-size: 1.2rem;
+    background-color: #e6e7f2;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    color: #7c4dff;
+
+}
+
+.hide_completed_div:hover {
+    background-color:#c6c7d2;
+    color: #5635b2;;
+    cursor: pointer;
 }

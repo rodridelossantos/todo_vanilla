@@ -12,8 +12,8 @@ const completedTasks = document.getElementById('hide_completed_div')
 let emtpyCircle = `
 <svg class="empty_circle" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1" class="w-6 h-6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg> 
 `
-let checkedCircle = `<svg class="checked_circle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="size-6">
-<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+let checkedCircle = `<svg xmlns="http://www.w3.org/2000/svg" class="checked_circle" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+  <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
 </svg>`
 let trashIcon = `<svg class="trash_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2" stroke="currentColor" class="size-6">
 <path style= "pointer-events: none;" stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
@@ -27,16 +27,32 @@ tasks.style = "display: none"
 
 let listArr = [];
 
+
 const attachRemoveToList = () => {
     for (let i = 0; i < lists.children.length; i++){
         console.log(lists.children[i])
         lists.children[i].children[1].addEventListener('click', (e) => {
             e.stopPropagation();
+            let listToRemove = listArr.findIndex((element) => {
+                return element.fullName === e.target.parentElement.attributes.value.value;
+            })
+            console.log("the element to remove is:", e.target.parentElement)
+            console.log("the element's value is:", e.target.parentElement.attributes.value.value)
+            console.log("the element in the list is:", listToRemove)
+            listArr.splice(listToRemove, 1);
             e.target.parentElement.remove();
-            listArr.splice(e.target.value, 1);
+            console.log(e.target.parentElement, "removed")
         })
     }
 }
+
+const attachToggleHide = () => {
+    const completedTasksDiv = document.getElementById('completed_tasks_div')
+    completedTasks.addEventListener('click', () => {
+        completedTasksDiv.classList.toggle('hidden')
+    })
+}
+attachToggleHide();
 
 attachRemoveToList();
 
@@ -64,14 +80,15 @@ const attachShowListTasks = () => {
             app.style = "display: none"
             tasks.style = "display: flex";
             listTitleHtml = `<p id=${listName}>${listName}</p>
-            <p class="item_amount">${lists.children.length} ${lists.children.length === 1 ? "item" : "items"}</p>
+            <p id="${listName}_items" class="item_amount"></p>
             `
-            tasksHeader.innerHTML = listTitleHtml
-            displayTasks(listArr.find((e) => e.fullName === listName))
+            tasksHeader.innerHTML = listTitleHtml;
+            let currentList = listArr.find((e) => e.fullName === listName)
+            displayTasks(currentList)
+            itemAmountUpdate(document.getElementById(`${tasksHeader.children[0].innerText}_items`), currentList.tasks.length)        
         })
     }
     
-    // console.log(lists.children)
     backBtnAddClickListener();
 }
 
@@ -92,6 +109,10 @@ const listNameGen = (element, arr, property) => {
 
     return newName;
 
+}
+
+const itemAmountUpdate = (itemAmountElement, itemAmount) => {
+    itemAmountElement.innerHTML = `${itemAmount} items`
 }
 
 addListBtn.addEventListener('click', () => {
@@ -115,6 +136,7 @@ addTaskBtn.addEventListener('click', () => {
         }
     );
     displayTasks(currentList);
+    itemAmountUpdate(document.getElementById(`${tasksHeader.children[0].innerText}_items`), currentList.tasks.length)
 })
 
 const taskHtmlTemplate = (isCompleted, id, task, key) => {
@@ -141,15 +163,6 @@ const displayTasks = (list) => {
         } 
     }
 
-    // if (
-    //     !completedTasksHtml
-    // ) {
-    //     completedTasks.setAttribute("hidden", "true")
-    // } else {
-    //     completedTasks.setAttribute("hidden", "false")
-    // }
-
-    // console.log(pendingTasksHtml)
     tasksContainer.children[0].innerHTML = pendingTasksHtml;
     tasksContainer.children[2].innerHTML = completedTasksHtml;
     appendCompleteTaskListener(tasksContainer.children[0].children)
@@ -163,7 +176,7 @@ const uniqueKeyGenerator = () =>{
 }
 
 const appendCompleteTaskListener = (tasks) => {
-    let currentList = listArr.find((e) => e.fullName === tasksHeader.innerText)
+    let currentList = listArr.find((e) => e.fullName === tasksHeader.children[0].innerText)
     for (let i = 0; i < tasks.length; i++) {
         console.log("this is: ", tasks[i].children[0].children[0])
         tasks[i].children[0].children[0].addEventListener('click', (e) => {
@@ -181,23 +194,23 @@ const appendCompleteTaskListener = (tasks) => {
 }
 
 const appendRemoveTaskListener = (tasks) => {
-    let currentList = listArr.find((e) => e.fullName === tasksHeader.innerText)
+    let currentList = listArr.find((e) => e.fullName === tasksHeader.children[0].innerText)
     for (let i = 0; i < tasks.length; i++) {
         tasks[i].children[1].addEventListener('click', (e) => {
             e.stopPropagation();
             console.log(e.target.parentElement.parentElement)
             let taskToRemove = currentList.tasks.findIndex((element) => {
-                element.key === e.target.parentElement.attributes.key.value;
+                return element.key === e.target.parentElement.attributes.key.value;
             })
             currentList.tasks.splice(
                 taskToRemove, 1
             )
             e.target.parentElement.remove()
             displayTasks(currentList);
+            itemAmountUpdate(document.getElementById(`${tasksHeader.children[0].innerText}_items`), currentList.tasks.length)
         }
     )
     }
-
 }
 
 
