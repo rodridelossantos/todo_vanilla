@@ -1,6 +1,6 @@
 # todo_vanilla
 
-##To do
+## To do
 - [ ] show number of tasks on list
 - [ ] remove list on upper right corner
 - [ ] username
