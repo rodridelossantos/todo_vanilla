@@ -61,7 +61,10 @@ const displayList = () => {
     // const removeParent = (e) => e.target.parentElement.remove();
     for (let i = 0; i < listArr.length; i++) {
         listHtml += `<div class="list" id="${i}" value="${listArr[i].fullName}">
+        <div class="list_name_div">
         <p class="list_name">${listArr[i].fullName}</p>
+        <p id="${listArr[i].fullName}_tasks"></p>
+        </div>
         <button type="button" id="remove_list_button">Remove</button>
         </div>`
         lists.innerHTML = listHtml;
@@ -79,13 +82,16 @@ const attachShowListTasks = () => {
             listName = e.target.attributes.value.value
             app.style = "display: none"
             tasks.style = "display: flex";
-            listTitleHtml = `<p id=${listName}>${listName}</p>
+            listTitleHtml = `
+            <p id=${listName}>${listName}</p>
             <p id="${listName}_items" class="item_amount"></p>
             `
             tasksHeader.innerHTML = listTitleHtml;
             let currentList = listArr.find((e) => e.fullName === listName)
             displayTasks(currentList)
-            itemAmountUpdate(document.getElementById(`${tasksHeader.children[0].innerText}_items`), currentList.tasks.length)        
+            itemAmountUpdate(document.getElementById(`${currentList.fullName}_items`), currentList.tasks.length)        
+            itemAmountUpdate(document.getElementById(`${currentList.fullName}_tasks`), currentList.tasks.length)
+
         })
     }
     
@@ -136,7 +142,8 @@ addTaskBtn.addEventListener('click', () => {
         }
     );
     displayTasks(currentList);
-    itemAmountUpdate(document.getElementById(`${tasksHeader.children[0].innerText}_items`), currentList.tasks.length)
+    itemAmountUpdate(document.getElementById(`${currentList.fullName}_items`), currentList.tasks.length)
+    itemAmountUpdate(document.getElementById(`${currentList.fullName}_tasks`), currentList.tasks.length)
 })
 
 const taskHtmlTemplate = (isCompleted, id, task, key) => {
@@ -207,7 +214,9 @@ const appendRemoveTaskListener = (tasks) => {
             )
             e.target.parentElement.remove()
             displayTasks(currentList);
-            itemAmountUpdate(document.getElementById(`${tasksHeader.children[0].innerText}_items`), currentList.tasks.length)
+            itemAmountUpdate(document.getElementById(`${currentList.fullName}_items`), currentList.tasks.length)
+            itemAmountUpdate(document.getElementById(`${currentList.fullName}_tasks`), currentList.tasks.length)
+
         }
     )
     }

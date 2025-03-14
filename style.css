@@ -70,6 +70,17 @@ body {
     pointer-events: none;
 }
 
+.list_name_div {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    pointer-events: none;
+}
+
+.list_name_div:nth-child(2) {
+   
+}
+
 .user {
     display: flex;
     place-items: center;
