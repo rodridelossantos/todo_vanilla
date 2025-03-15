@@ -255,7 +255,9 @@ const appendCompleteTaskListener = (tasks) => {
             console.log(taskToComplete)
             taskToComplete.completed = !taskToComplete.completed;
             taskToComplete.completed ? e.target.parentElement.parentElement.style = "text-decoration: line-through" : e.target.parentElement.parentElement.style = "";
+            localStorage.listArr = JSON.stringify(listArr)
             displayTasks(currentList)
+            
         }
     )
     }
