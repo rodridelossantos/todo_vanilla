@@ -77,10 +77,6 @@ body {
     pointer-events: none;
 }
 
-.list_name_div:nth-child(2) {
-   
-}
-
 .user {
     display: flex;
     place-items: center;
@@ -239,8 +235,20 @@ hr {
 }
 
 .hidden {
-    visibility: hidden;
+    display: none;
+    /* opacity: 0; */
 }
+
+.chevron {
+    transition: all 100ms;
+    height: 1.3rem;
+}
+
+
+.hide_completed {
+    transform: rotate(-90deg);
+}
+
 
 .hide_completed_div {
     font-size: 1.2rem;
@@ -250,11 +258,17 @@ hr {
     padding: 0.5rem;
     border-radius: 1rem;
     color: #7c4dff;
-
+    display: flex;
+    place-items: center;
 }
 
 .hide_completed_div:hover {
     background-color:#c6c7d2;
-    color: #5635b2;;
+    color: #5635b2;
     cursor: pointer;
+}
+
+.hide_completed_div p { 
+    pointer-events: none;
+    user-select: none;
 }

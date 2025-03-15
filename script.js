@@ -7,7 +7,9 @@ const addTaskBtn = document.getElementById("add_task_btn")
 const taskInput = document.getElementById("task_input")
 const tasksContainer = document.getElementById("tasks_container");
 const backBtn = document.getElementById('back_button')
-const completedTasks = document.getElementById('hide_completed_div')
+const hideCompletedDiv = document.getElementById('hide_completed_div');
+const chevron = document.getElementById('chevron')
+const completedTasksDiv = document.getElementById('completed_tasks_div')
 
 let emtpyCircle = `
 <svg class="empty_circle" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1" class="w-6 h-6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg> 
@@ -47,11 +49,19 @@ const attachRemoveToList = () => {
 }
 
 const attachToggleHide = () => {
-    const completedTasksDiv = document.getElementById('completed_tasks_div')
-    completedTasks.addEventListener('click', () => {
+    hideCompletedDiv.addEventListener('click', () => {
+        listToToggle = listArr.find((e) => e.fullName === tasksHeader.children[0].innerText)
         completedTasksDiv.classList.toggle('hidden')
+        if (completedTasksDiv.classList.contains("hidden")) {
+            listToToggle.tasksHidden = true
+        }
+        else {
+            listToToggle.tasksHidden = false
+        }
     })
 }
+
+
 attachToggleHide();
 
 attachRemoveToList();
@@ -63,7 +73,9 @@ const displayList = () => {
         listHtml += `<div class="list" id="${i}" value="${listArr[i].fullName}">
         <div class="list_name_div">
         <p class="list_name">${listArr[i].fullName}</p>
-        <p id="${listArr[i].fullName}_tasks"></p>
+        <p id="${listArr[i].fullName}_tasks" class="task_number_list_section">
+        ${listArr[i].tasks.length} items
+        </p>
         </div>
         <button type="button" id="remove_list_button">Remove</button>
         </div>`
@@ -91,11 +103,25 @@ const attachShowListTasks = () => {
             displayTasks(currentList)
             itemAmountUpdate(document.getElementById(`${currentList.fullName}_items`), currentList.tasks.length)        
             itemAmountUpdate(document.getElementById(`${currentList.fullName}_tasks`), currentList.tasks.length)
-
+            checkIfTasksHidden(currentList.tasksHidden)
+            if (currentList.tasksHidden) {
+            chevron.classList.add("hide_completed")
+            } else {
+                chevron.classList.remove("hide_completed")
+            }
         })
     }
     
     backBtnAddClickListener();
+}
+
+const checkIfTasksHidden = (bool) => {
+    if (bool) {
+        completedTasksDiv.classList.add("hidden")
+    }
+    else {
+    completedTasksDiv.classList.remove("hidden")
+    }
 }
 
 const listNameGen = (element, arr, property) => {
@@ -126,6 +152,7 @@ addListBtn.addEventListener('click', () => {
     let listName = listNameGen(prompt('Type a name for your new list'), listArr, "fullName")
     listArr.push({
         fullName: listName,
+        tasksHidden: false,
         tasks: [],
     })
     displayList();
@@ -229,3 +256,11 @@ const backBtnAddClickListener = () => {
         tasks.style = "display: none";
     })
 }
+
+const chevronAnimate = () => {
+    hideCompletedDiv.addEventListener('click', () => {
+        chevron.classList.toggle("hide_completed");
+    })
+}
+
+chevronAnimate();
