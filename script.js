@@ -191,21 +191,31 @@ addListBtn.addEventListener('click', () => {
     
 })
 
-addTaskBtn.addEventListener('click', () => {
+
+const addTask = () => {
     let taskName = taskInput.value;
     let currentList = listArr.find((e) => e.fullName === tasksHeader.children[0].innerText)
-    // console.log(currentList)
     currentList.tasks.push(
         {task: taskName,
          completed: false,
          key: uniqueKeyGenerator(),
         }
     );
+    taskInput.value = ""
     localStorage.listArr = JSON.stringify(listArr)
     displayTasks(currentList);
     itemAmountUpdate(document.getElementById(`${currentList.fullName}_items`), currentList.tasks.length)
     itemAmountUpdate(document.getElementById(`${currentList.fullName}_tasks`), currentList.tasks.length)
+    return 0;
+}
+taskInput.addEventListener('keypress', (e) => {
+    if (e.key === "Enter" && taskInput.value) addTask();
 })
+
+addTaskBtn.addEventListener('click', () => {
+    if (taskInput.value) addTask()
+})
+
 
 const taskHtmlTemplate = (isCompleted, id, task, key) => {
     return `<div style="${isCompleted ? "text-decoration: line-through" : ""}" class='task' key='${key}' id='${id}'>
