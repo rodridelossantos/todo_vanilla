@@ -25,10 +25,22 @@ let trashIcon = `<svg class="trash_icon" xmlns="http://www.w3.org/2000/svg" fill
 // Usar clases utilitarias en vez de in-line styles.
 
 
+
+
 tasks.style = "display: none"
 
-let listArr = [];
+let listArr;
 
+if (!listArr) {
+    listArr = []
+}
+
+
+if (!localStorage.listArr) {
+    localStorage.setItem("listArr", "[]")
+} else{
+     listArr = JSON.parse(localStorage.listArr)
+}
 
 const attachRemoveToList = () => {
     for (let i = 0; i < lists.children.length; i++){
@@ -44,47 +56,16 @@ const attachRemoveToList = () => {
             listArr.splice(listToRemove, 1);
             e.target.parentElement.remove();
             console.log(e.target.parentElement, "removed")
+            localStorage.listArr = JSON.stringify(listArr);
         })
     }
 }
-
-const attachToggleHide = () => {
-    hideCompletedDiv.addEventListener('click', () => {
-        listToToggle = listArr.find((e) => e.fullName === tasksHeader.children[0].innerText)
-        completedTasksDiv.classList.toggle('hidden')
-        if (completedTasksDiv.classList.contains("hidden")) {
-            listToToggle.tasksHidden = true
-        }
-        else {
-            listToToggle.tasksHidden = false
-        }
+const backBtnAddClickListener = () => {
+    backBtn.addEventListener('click', () => {
+        app.style = "display: flex"
+        tasks.style = "display: none";
     })
 }
-
-
-attachToggleHide();
-
-attachRemoveToList();
-
-const displayList = () => {
-    let listHtml = ``
-    // const removeParent = (e) => e.target.parentElement.remove();
-    for (let i = 0; i < listArr.length; i++) {
-        listHtml += `<div class="list" id="${i}" value="${listArr[i].fullName}">
-        <div class="list_name_div">
-        <p class="list_name">${listArr[i].fullName}</p>
-        <p id="${listArr[i].fullName}_tasks" class="task_number_list_section">
-        ${listArr[i].tasks.length} items
-        </p>
-        </div>
-        <button type="button" id="remove_list_button">Remove</button>
-        </div>`
-        lists.innerHTML = listHtml;
-    }
-    attachShowListTasks();
-    attachRemoveToList();
-}
-
 
 const attachShowListTasks = () => {
     let listTitleHtml = ``;
@@ -109,11 +90,61 @@ const attachShowListTasks = () => {
             } else {
                 chevron.classList.remove("hide_completed")
             }
+
+            localStorage.listArr = JSON.stringify(listArr)
         })
     }
     
     backBtnAddClickListener();
 }
+
+displayList = () => {
+    let listHtml = ``
+    // const removeParent = (e) => e.target.parentElement.remove();
+    for (let i = 0; i < listArr.length; i++) {
+        listHtml += `<div class="list" id="${i}" value="${listArr[i].fullName}">
+        <div class="list_name_div">
+        <p class="list_name">${listArr[i].fullName}</p>
+        <p id="${listArr[i].fullName}_tasks" class="task_number_list_section">
+        ${listArr[i].tasks.length} items
+        </p>
+        </div>
+        <button type="button" id="remove_list_button">Remove</button>
+        </div>`
+        lists.innerHTML = listHtml;
+    }
+    attachShowListTasks();
+    attachRemoveToList();
+}
+displayList()
+
+
+// listArr = JSON.parse(localStorage.listArr) || []; 
+
+
+
+
+const attachToggleHide = () => {
+    hideCompletedDiv.addEventListener('click', () => {
+        listToToggle = listArr.find((e) => e.fullName === tasksHeader.children[0].innerText)
+        completedTasksDiv.classList.toggle('hidden')
+        if (completedTasksDiv.classList.contains("hidden")) {
+            listToToggle.tasksHidden = true
+        }
+        else {
+            listToToggle.tasksHidden = false
+        }
+    })
+}
+
+
+attachToggleHide();
+
+attachRemoveToList();
+
+
+
+
 
 const checkIfTasksHidden = (bool) => {
     if (bool) {
@@ -155,7 +186,9 @@ addListBtn.addEventListener('click', () => {
         tasksHidden: false,
         tasks: [],
     })
+    localStorage.listArr = JSON.stringify(listArr)
     displayList();
+    
 })
 
 addTaskBtn.addEventListener('click', () => {
@@ -168,6 +201,7 @@ addTaskBtn.addEventListener('click', () => {
          key: uniqueKeyGenerator(),
         }
     );
+    localStorage.listArr = JSON.stringify(listArr)
     displayTasks(currentList);
     itemAmountUpdate(document.getElementById(`${currentList.fullName}_items`), currentList.tasks.length)
     itemAmountUpdate(document.getElementById(`${currentList.fullName}_tasks`), currentList.tasks.length)
@@ -243,19 +277,14 @@ const appendRemoveTaskListener = (tasks) => {
             displayTasks(currentList);
             itemAmountUpdate(document.getElementById(`${currentList.fullName}_items`), currentList.tasks.length)
             itemAmountUpdate(document.getElementById(`${currentList.fullName}_tasks`), currentList.tasks.length)
-
+            localStorage.listArr = JSON.stringify(listArr)
         }
     )
     }
 }
 
 
-const backBtnAddClickListener = () => {
-    backBtn.addEventListener('click', () => {
-        app.style = "display: flex"
-        tasks.style = "display: none";
-    })
-}
+
 
 const chevronAnimate = () => {
     hideCompletedDiv.addEventListener('click', () => {
