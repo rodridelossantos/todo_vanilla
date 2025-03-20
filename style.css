@@ -20,10 +20,24 @@ body {
     box-shadow: 2px 4px 16px rgb(192, 192, 192);
 }
 
+.lists {
+    height: inherit;
+    padding: 1rem;
+    /* gap: 1rem; */
+    display: grid;
+    width: 100%;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 33% 33% 33%;
+    justify-items: center;
+}
 
 @media (orientation: portrait) {
     .app_container {
         width: 100%;
+    }
+
+    .lists {
+        grid-template-columns: 50% 50%;
     }
 }
 
@@ -44,15 +58,6 @@ body {
     background-color: #fafafa;
     padding: 2rem;
     box-shadow: 0px 0px 25px -15px #333;
-}
-
-.lists {
-    height: inherit;
-    padding: 1rem;
-    gap: 1rem;
-    display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
-    grid-template-rows: 33% 33% 33%;
 }
 
 .list {
