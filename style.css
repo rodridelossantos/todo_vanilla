@@ -16,18 +16,19 @@ body {
 .app_container {
     margin: auto;
     width: 960px;
-    height: inherit;
+    min-height: 100dvh;
+    height: auto;
     box-shadow: 2px 4px 16px rgb(192, 192, 192);
 }
 
 .lists {
-    height: inherit;
+    flex-grow: 4;
+    /* overflow: visible; */
     padding: 1rem;
-    /* gap: 1rem; */
     display: grid;
-    width: 100%;
-    grid-template-columns: 25% 25% 25% 25%;
-    grid-template-rows: 33% 33% 33%;
+    gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     justify-items: center;
 }
 
@@ -35,13 +36,21 @@ body {
     .app_container {
         width: 100%;
     }
+    
+    .add_list_button {
+    position: fixed;
+    top: 88dvh;
+    right: 2rem;
+    }
 
     .lists {
-        grid-template-columns: 50% 50%;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(auto-fit, 1fr)
     }
 }
 
 .app, .tasks {
+    min-height: inherit;
     height: inherit;
     display: flex;
     flex-flow: column;
@@ -80,6 +89,7 @@ body {
 }
 
 .list_name_div {
+    justify-self: start;
     display: flex;
     flex-direction: column;
     place-items: center;
@@ -93,18 +103,20 @@ body {
     gap: 1rem;
 }
 
-.footer {
-    text-align: end;
-    padding: 2rem;
-}
-
 .lists_section_title {
     font-size: 2.5rem;
     margin-left: 1rem;
 }
 
+.footer {
+    display: flex;
+    place-content: end;
+    padding: 2rem;
+}
 
-.footer .add_list_button {
+.add_list_button {
+    position: fixed;
+    bottom: 1rem;
     height: 70px;
     width: 70px;
     padding: 1rem;
@@ -113,7 +125,7 @@ body {
     box-shadow: 2px 4px 16px #5635b2;
 }
 
-.footer .add_list_button:hover, .list:hover, .task:hover, .back_button:hover {
+.add_list_button:hover, .list:hover, .task:hover, .back_button:hover {
     background-color: #5635b2;
     color:  whitesmoke;
     cursor: pointer;
