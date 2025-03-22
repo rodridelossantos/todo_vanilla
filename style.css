@@ -63,7 +63,7 @@ body {
     gap:0;
 }
 
-.navbar {
+.navbar, .tasks_header {
     background-color: #fafafa;
     padding: 2rem;
     box-shadow: 0px 0px 25px -15px #333;
@@ -125,12 +125,16 @@ body {
     box-shadow: 2px 4px 16px #5635b2;
 }
 
-.add_list_button:hover, .list:hover, .task:hover, .back_button:hover {
+.add_list_button:hover, .list:hover, .task:hover {
     background-color: #5635b2;
     color:  whitesmoke;
     cursor: pointer;
     transition: all 150ms;
-
+}
+.back_button:hover {
+    cursor: pointer;
+    color: rgb(216, 216, 216);
+    transition: all 150ms;
 }
 
 
@@ -192,6 +196,7 @@ hr {
     height: inherit;
     display: flex;
     flex-flow: column;
+    flex: 1;
 }
 
 .task_icon {
