@@ -188,11 +188,12 @@ const itemAmountUpdate = (itemAmountElement, itemAmount) => {
 addListBtn.addEventListener('click', () => {
     // let listName = listIsDuplicate(prompt('Type a name for your new list.'));
     let listName = listNameGen(prompt('Type a name for your new list'), listArr, "fullName")
-    listArr.push({
+   if (listName) { listArr.push({
         fullName: listName,
         tasksHidden: false,
         tasks: [],
     })
+}
     localStorage.listArr = JSON.stringify(listArr)
     displayList();
     
