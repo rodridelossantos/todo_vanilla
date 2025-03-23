@@ -103,7 +103,6 @@ const attachShowListTasks = () => {
 
 displayList = () => {
     let listHtml = ``
-    // const removeParent = (e) => e.target.parentElement.remove();
     for (let i = 0; i < listArr.length; i++) {
         listHtml += `<div class="list" id="${i}" value="${listArr[i].fullName}">
         <div class="list_name_div">
@@ -125,12 +124,6 @@ displayList = () => {
 }
 displayList()
 
-
-// listArr = JSON.parse(localStorage.listArr) || []; 
-
-
-
-
 const attachToggleHide = () => {
     hideCompletedDiv.addEventListener('click', () => {
         listToToggle = listArr.find((e) => e.fullName === tasksHeader.children[0].innerText)
@@ -148,9 +141,6 @@ const attachToggleHide = () => {
 attachToggleHide();
 
 attachRemoveToList();
-
-
-
 
 
 const checkIfTasksHidden = (bool) => {
@@ -186,7 +176,6 @@ const itemAmountUpdate = (itemAmountElement, itemAmount) => {
 }
 
 addListBtn.addEventListener('click', () => {
-    // let listName = listIsDuplicate(prompt('Type a name for your new list.'));
     let listName = listNameGen(prompt('Type a name for your new list'), listArr, "fullName")
    if (listName) { listArr.push({
         fullName: listName,
