@@ -29,9 +29,8 @@ const ellipsesSvg = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox
 // Usar clases utilitarias en vez de in-line styles.
 
 
-
-
-tasks.style = "display: none"
+// tasks.style = "display: none"
+tasks.classList.add("hidden")
 
 let listArr;
 
@@ -66,8 +65,8 @@ const attachRemoveToList = () => {
 }
 const backBtnAddClickListener = () => {
     backBtn.addEventListener('click', () => {
-        app.style = "display: flex"
-        tasks.style = "display: none";
+        app.classList.remove("hidden");
+        tasks.classList.add("hidden");
     })
 }
 
@@ -77,8 +76,8 @@ const attachShowListTasks = () => {
         lists.children[i].addEventListener('click', (e) => {
             console.log(e.target.attributes)
             listName = e.target.attributes.value.value
-            app.style = "display: none"
-            tasks.style = "display: flex";
+            app.classList.add("hidden")
+            tasks.classList.remove("hidden");
             listTitleHtml = `
             <p id=${listName}>${listName}</p>
             <p id="${listName}_items" class="item_amount"></p>

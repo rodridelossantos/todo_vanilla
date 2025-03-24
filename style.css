@@ -316,3 +316,7 @@ hr {
     display: none;
     /* opacity: 0; */
 }
+
+.flex {
+    display: flex;
+}
