@@ -4,15 +4,32 @@
     padding: 0;
 
 }
+:root {
+    --body-bg: #ECEFF1;
+    --list-color: #fafafa;
+    --navbar-color: #fafafa;
+    --text-color: black;
+    --svg-color: #111;
+}
+
+.dark_mode {
+    --body-bg: #111;
+    --list-color: #2227;
+    --navbar-color: #2227;
+    --text-color: whitesmoke;
+    --svg-color: rgb(212, 212, 212);
+}
 
 
 body {
     height: 100dvh;
     width: 100%;
-    background-color: #ECEFF1;
+    background-color: var(--body-bg);
     font-family: "Inter", sans-serif;
     font-weight: 200;
+    color: var(--text-color)
 }
+
 
 .app_container {
     margin: auto;
@@ -24,7 +41,6 @@ body {
 
 .lists {
     flex-grow: 4;
-    /* overflow: visible; */
     padding: 1rem;
     display: grid;
     gap: 1rem;
@@ -56,7 +72,7 @@ body {
     display: flex;
     flex-flow: column;
     justify-content: space-between;
-    background-color: #eceff1;
+    background-color: var(--body-bg);
     gap: 1rem;
 }
 
@@ -65,13 +81,20 @@ body {
 }
 
 .navbar, .tasks_header {
-    background-color: #fafafa;
+    background-color: var(--navbar-color);
     padding: 2rem;
     box-shadow: 0px 0px 25px -15px #333;
 }
 
+.navbar{
+    display: flex;
+    place-items: center;
+    place-content: space-between;
+
+}
+
 .list {
-    background-color: #fafafa;
+    background-color: var(--list-color);
     height: 150px;
     width: 150px;
     grid: 6;
@@ -144,7 +167,7 @@ body {
     height: 25%;
     text-align: center;
     background-color: #7c4dff;
-    color: whitesmoke;
+    color: var(--text-color);
     font-size: 2.5rem;
     display: flex;
     place-content: space-between;
@@ -287,7 +310,7 @@ hr {
 }
 
 .remove_list_button:hover {
-    cursor: pointer;;
+    cursor: pointer;
 }
 
 .hide_completed_div {
@@ -320,4 +343,15 @@ hr {
 
 .flex {
     display: flex;
+}
+
+.moon_svg {
+    color: var(--svg-color);
+    height: 2rem;
+}
+
+.moon_svg:hover {
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 150ms;
 }
