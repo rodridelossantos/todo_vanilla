@@ -36,7 +36,7 @@ body {
     width: 960px;
     min-height: 100dvh;
     height: auto;
-    box-shadow: 2px 4px 16px rgb(192, 192, 192);
+    /* box-shadow: 2px 4px 16px rgb(192, 192, 192); */
 }
 
 .lists {
@@ -345,12 +345,12 @@ hr {
     display: flex;
 }
 
-.moon_svg {
+.moon_svg, .sun_svg {
     color: var(--svg-color);
     height: 2rem;
 }
 
-.moon_svg:hover {
+.moon_svg:hover, .sun_svg:hover {
     color: var(--text-color);
     cursor: pointer;
     transition: all 150ms;
