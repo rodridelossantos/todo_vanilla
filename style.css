@@ -345,12 +345,12 @@ hr {
     display: flex;
 }
 
-.moon_svg {
+.moon_svg, .sun_svg {
     color: var(--svg-color);
     height: 2rem;
 }
 
-.moon_svg:hover {
+.moon_svg:hover, .sun_svg:hover {
     color: var(--text-color);
     cursor: pointer;
     transition: all 150ms;
