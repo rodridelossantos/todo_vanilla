@@ -36,7 +36,7 @@ body {
     width: 960px;
     min-height: 100dvh;
     height: auto;
-    box-shadow: 2px 4px 16px rgb(192, 192, 192);
+    /* box-shadow: 2px 4px 16px rgb(192, 192, 192); */
 }
 
 .lists {
