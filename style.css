@@ -10,6 +10,8 @@
     --navbar-color: #fafafa;
     --text-color: black;
     --svg-color: #111;
+    --title-color: #dadada;
+    --placeholder-color: #777;
 }
 
 .dark_mode {
@@ -18,6 +20,8 @@
     --navbar-color: #2227;
     --text-color: whitesmoke;
     --svg-color: rgb(212, 212, 212);
+    --title-color: #dadada;
+    --placeholder-color: #777;
 }
 
 
@@ -36,7 +40,6 @@ body {
     width: 960px;
     min-height: 100dvh;
     height: auto;
-    /* box-shadow: 2px 4px 16px rgb(192, 192, 192); */
 }
 
 .lists {
@@ -90,7 +93,7 @@ body {
     display: flex;
     place-items: center;
     place-content: space-between;
-
+    
 }
 
 .list {
@@ -164,10 +167,9 @@ body {
 
 /* fix */
 .tasks_header {
-    height: 25%;
     text-align: center;
     background-color: #7c4dff;
-    color: var(--text-color);
+    color: var(--title-color);
     font-size: 2.5rem;
     display: flex;
     place-content: space-between;
@@ -194,6 +196,11 @@ body {
     border: none;
     background: none;
     font-size: 1.5rem;
+    color: var(--text-color);
+}
+
+.task_input_container input::placeholder {
+    color: var(--placeholder-color)
 }
 
 .task_input_container input:focus {
@@ -284,18 +291,6 @@ hr {
     font-weight: lighter;
 }
 
-
-.chevron {
-    transition: all 100ms;
-    height: 1.3rem;
-}
-
-.ellipses {
-    height: 1.7rem;
-    pointer-events: none;
-}
-
-
 .hide_completed {
     transform: rotate(-90deg);
 }
@@ -345,7 +340,16 @@ hr {
     display: flex;
 }
 
-.moon_svg, .sun_svg {
+.chevron {
+    transition: all 100ms;
+    height: 1.3rem;
+}
+
+.ellipses {
+    pointer-events: none;
+}
+
+.moon_svg, .sun_svg, .ellipses {
     color: var(--svg-color);
     height: 2rem;
 }
